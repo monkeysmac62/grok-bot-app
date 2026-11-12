@@ -1,0 +1,45 @@
+workflows:
+  ios-unsigned:
+    name: iOS unsigned simulator and archive
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    environment:
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Show Xcode version
+        script: xcodebuild -version
+      - name: Build for Simulator (signing disabled)
+        script: |
+          xcodebuild \
+            -project GrokBotWidgetApp.xcodeproj \
+            -target GrokBotWidgetApp \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -derivedDataPath build/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+      - name: Package Simulator app
+        script: |
+          ditto -c -k --sequesterRsrc --keepParent build/DerivedData/Build/Products/Debug-iphonesimulator/GrokBotWidgetApp.app build/GrokBotWidgetApp-simulator.zip
+      - name: Archive for device (signing disabled)
+        script: |
+          xcodebuild \
+            -project GrokBotWidgetApp.xcodeproj \
+            -target GrokBotWidgetApp \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            archive -archivePath build/GrokBotWidgetApp.xcarchive
+      - name: Package unsigned IPA
+        script: |
+          mkdir -p build/Payload
+          cp -R build/GrokBotWidgetApp.xcarchive/Products/Applications/GrokBotWidgetApp.app build/Payload/
+          cd build && zip -r GrokBotWidgetApp-unsigned.ipa Payload
+    artifacts:
+      - build/GrokBotWidgetApp-simulator.zip
+      - build/GrokBotWidgetApp-unsigned.ipa
