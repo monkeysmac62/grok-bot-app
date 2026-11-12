@@ -1,0 +1,161 @@
+# iOS Build (cloud Mac) — Grok Bot Widget
+#
+# Runs on GitHub-hosted macOS runners (real Apple hardware, Xcode preinstalled).
+# No Mac of your own is needed to RUN this workflow — but you do need a
+# GitHub account + a repository to put the code in (see README-CLOUD-BUILD.md).
+#
+# What this workflow CAN do (no Apple account needed):
+#   - Compile the app + widget extension for the iOS Simulator, unsigned.
+#   - Produce an unsigned .ipa (archive, signing disabled).
+# What it CANNOT do:
+#   - Install anything on a real iPhone. An unsigned build cannot be
+#     installed on a stock iPhone, and App Groups (which this widget uses
+#     to share state) normally do NOT work on a free personal team.
+#     A real-device install needs Apple signing — see the optional
+#     `signed-archive` job and README-CLOUD-BUILD.md.
+
+name: iOS Build (Cloud Mac)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # ------------------------------------------------------------------
+  # Job 1: compile check + unsigned Simulator .app (needs NO secrets)
+  # ------------------------------------------------------------------
+  simulator-build:
+    name: Simulator build (unsigned, no Apple account)
+    runs-on: macos-26
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: List project targets
+        run: xcodebuild -list -project GrokBotWidgetApp.xcodeproj
+
+      # NOTE: this project ships no shared .xcscheme, so build by -target,
+      # not -scheme. Building the app target also builds the embedded
+      # widget extension.
+      - name: Build app + widget for Simulator (signing disabled)
+        run: |
+          xcodebuild \
+            -project GrokBotWidgetApp.xcodeproj \
+            -target GrokBotWidgetApp \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Locate the built .app
+        run: |
+          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "GrokBotWidgetApp.app" -type d | head -n 1)
+          echo "APP_PATH=$APP_PATH" >> "$GITHUB_ENV"
+          test -n "$APP_PATH" && ls -la "$APP_PATH"
+
+      - name: Upload Simulator .app
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrokBotWidgetApp-simulator
+          path: ${{ env.APP_PATH }}
+          if-no-files-found: error
+
+  # ------------------------------------------------------------------
+  # Job 2: unsigned .ipa (archive, signing disabled — no secrets needed)
+  # Installable ONLY on a jailbroken device or in the Simulator.
+  # It CANNOT be installed on a normal iPhone.
+  # ------------------------------------------------------------------
+  unsigned-ipa:
+    name: Unsigned .ipa (cannot install on a stock iPhone)
+    runs-on: macos-26
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Archive (signing disabled)
+        run: |
+          xcodebuild \
+            -project GrokBotWidgetApp.xcodeproj \
+            -target GrokBotWidgetApp \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            archive -archivePath build/GrokBotWidgetApp.xcarchive
+
+      - name: Package unsigned .ipa
+        run: |
+          mkdir -p build/Payload
+          cp -R build/GrokBotWidgetApp.xcarchive/Products/Applications/GrokBotWidgetApp.app build/Payload/
+          cd build && zip -r GrokBotWidgetApp-unsigned.ipa Payload
+
+      - name: Upload unsigned .ipa
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrokBotWidgetApp-unsigned-ipa
+          path: build/GrokBotWidgetApp-unsigned.ipa
+          if-no-files-found: error
+
+  # ------------------------------------------------------------------
+  # Job 3 (OPTIONAL): signed archive for a real iPhone.
+  # Only runs when the repo has these secrets set:
+  #   APPLE_TEAM_ID, APPLE_ID, APPLE_APP_SPECIFIC_PASSWORD
+  # (Settings -> Secrets and variables -> Actions)
+  # AND the App Group `group.com.grokbot.widget` exists under that team
+  # (Xcode -> Signing & Capabilities -> App Groups, or
+  #  developer.apple.com -> Certificates, Identifiers & Profiles).
+  # Free personal teams usually CANNOT use App Groups; in practice this
+  # needs the paid Apple Developer Program ($99/year).
+  # ------------------------------------------------------------------
+  signed-archive:
+    name: Signed archive (real iPhone — needs Apple secrets)
+    runs-on: macos-26
+    if: ${{ secrets.APPLE_TEAM_ID != '' }}
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Archive with automatic signing
+        env:
+          DEVELOPMENT_TEAM: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          xcodebuild \
+            -project GrokBotWidgetApp.xcodeproj \
+            -target GrokBotWidgetApp \
+            -sdk iphoneos \
+            -configuration Release \
+            DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
+            -allowProvisioningUpdates \
+            archive -archivePath build/GrokBotWidgetApp.xcarchive
+
+      - name: Export signed .ipa (development method)
+        run: |
+          cat > build/ExportOptions.plist <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key><string>development</string>
+              <key>teamID</key><string>${{ secrets.APPLE_TEAM_ID }}</string>
+          </dict>
+          </plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath build/GrokBotWidgetApp.xcarchive \
+            -exportOptionsPlist build/ExportOptions.plist \
+            -exportPath build/export
+
+      - name: Upload signed .ipa
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrokBotWidgetApp-signed-ipa
+          path: build/export/*.ipa
+          if-no-files-found: error
