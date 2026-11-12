@@ -4,6 +4,10 @@
 # No Mac of your own is needed to RUN this workflow — but you do need a
 # GitHub account + a repository to put the code in (see README-CLOUD-BUILD.md).
 #
+# Single job on purpose: two parallel jobs need two macOS runners at once,
+# which is what kept queueing. One job needs only one runner.
+# Runs on macos-14 (older runner pool, usually less congested than macos-26/15).
+#
 # What this workflow CAN do (no Apple account needed):
 #   - Compile the app + widget extension for the iOS Simulator, unsigned.
 #   - Produce an unsigned .ipa (archive, signing disabled).
@@ -13,7 +17,7 @@
 #     to share state) normally do NOT work on a free personal team.
 #     A real-device install needs Apple signing — the optional signed
 #     job was removed from this file because its job-level secrets
-#     guard made the workflow invalid; see the Job 3 comment at the
+#     guard made the workflow invalid; see the Job 2 comment at the
 #     bottom and README-CLOUD-BUILD.md.
 
 name: iOS Build (Cloud Mac)
@@ -25,12 +29,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ------------------------------------------------------------------
-  # Job 1: compile check + unsigned Simulator .app (needs NO secrets)
-  # ------------------------------------------------------------------
-  simulator-build:
-    name: Simulator build (unsigned, no Apple account)
-    runs-on: macos-15
+  build:
+    name: Build (unsigned, no Apple account)
+    runs-on: macos-14
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -69,18 +70,6 @@ jobs:
           path: ${{ env.APP_PATH }}
           if-no-files-found: error
 
-  # ------------------------------------------------------------------
-  # Job 2: unsigned .ipa (archive, signing disabled — no secrets needed)
-  # Installable ONLY on a jailbroken device or in the Simulator.
-  # It CANNOT be installed on a normal iPhone.
-  # ------------------------------------------------------------------
-  unsigned-ipa:
-    name: Unsigned .ipa (cannot install on a stock iPhone)
-    runs-on: macos-15
-    steps:
-      - name: Check out
-        uses: actions/checkout@v4
-
       - name: Archive (signing disabled)
         run: |
           xcodebuild \
@@ -107,7 +96,7 @@ jobs:
           if-no-files-found: error
 
   # ------------------------------------------------------------------
-  # Job 3 (OPTIONAL, removed for now): signed archive for a real iPhone.
+  # Job 2 (OPTIONAL, removed for now): signed archive for a real iPhone.
   # It was removed because a job-level `if: secrets...` makes the whole
   # workflow file invalid on GitHub (secrets are not recognised in a
   # job-level `if`). Re-add it only once the repo has these secrets set
