@@ -30,7 +30,7 @@ jobs:
   # ------------------------------------------------------------------
   simulator-build:
     name: Simulator build (unsigned, no Apple account)
-    runs-on: macos-26
+    runs-on: macos-15
     steps:
       - name: Check out
         uses: actions/checkout@v4
@@ -76,7 +76,7 @@ jobs:
   # ------------------------------------------------------------------
   unsigned-ipa:
     name: Unsigned .ipa (cannot install on a stock iPhone)
-    runs-on: macos-26
+    runs-on: macos-15
     steps:
       - name: Check out
         uses: actions/checkout@v4
