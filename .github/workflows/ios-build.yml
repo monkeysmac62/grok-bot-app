@@ -31,7 +31,7 @@ on:
 jobs:
   build:
     name: Build (unsigned, no Apple account)
-    runs-on: macos-14
+    runs-on: macos-latest
     steps:
       - name: Check out
         uses: actions/checkout@v4
