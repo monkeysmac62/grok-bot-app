@@ -11,8 +11,10 @@
 #   - Install anything on a real iPhone. An unsigned build cannot be
 #     installed on a stock iPhone, and App Groups (which this widget uses
 #     to share state) normally do NOT work on a free personal team.
-#     A real-device install needs Apple signing — see the optional
-#     `signed-archive` job and README-CLOUD-BUILD.md.
+#     A real-device install needs Apple signing — the optional signed
+#     job was removed from this file because its job-level secrets
+#     guard made the workflow invalid; see the Job 3 comment at the
+#     bottom and README-CLOUD-BUILD.md.
 
 name: iOS Build (Cloud Mac)
 
@@ -105,57 +107,16 @@ jobs:
           if-no-files-found: error
 
   # ------------------------------------------------------------------
-  # Job 3 (OPTIONAL): signed archive for a real iPhone.
-  # Only runs when the repo has these secrets set:
+  # Job 3 (OPTIONAL, removed for now): signed archive for a real iPhone.
+  # It was removed because a job-level `if: secrets...` makes the whole
+  # workflow file invalid on GitHub (secrets are not recognised in a
+  # job-level `if`). Re-add it only once the repo has these secrets set
+  # (Settings -> Secrets and variables -> Actions):
   #   APPLE_TEAM_ID, APPLE_ID, APPLE_APP_SPECIFIC_PASSWORD
-  # (Settings -> Secrets and variables -> Actions)
-  # AND the App Group `group.com.grokbot.widget` exists under that team
-  # (Xcode -> Signing & Capabilities -> App Groups, or
-  #  developer.apple.com -> Certificates, Identifiers & Profiles).
-  # Free personal teams usually CANNOT use App Groups; in practice this
-  # needs the paid Apple Developer Program ($99/year).
+  # and guard it with a step-level check instead of a job-level `if`,
+  # e.g. `if: env.DEVELOPMENT_TEAM != ''` with the secret mapped into
+  # `env:` first. The App Group `group.com.grokbot.widget` must also
+  # exist under that team. Free personal teams usually CANNOT use App
+  # Groups; in practice this needs the paid Apple Developer Program
+  # ($99/year). See README-CLOUD-BUILD.md.
   # ------------------------------------------------------------------
-  signed-archive:
-    name: Signed archive (real iPhone — needs Apple secrets)
-    runs-on: macos-26
-    if: ${{ secrets.APPLE_TEAM_ID != '' }}
-    steps:
-      - name: Check out
-        uses: actions/checkout@v4
-
-      - name: Archive with automatic signing
-        env:
-          DEVELOPMENT_TEAM: ${{ secrets.APPLE_TEAM_ID }}
-        run: |
-          xcodebuild \
-            -project GrokBotWidgetApp.xcodeproj \
-            -target GrokBotWidgetApp \
-            -sdk iphoneos \
-            -configuration Release \
-            DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
-            -allowProvisioningUpdates \
-            archive -archivePath build/GrokBotWidgetApp.xcarchive
-
-      - name: Export signed .ipa (development method)
-        run: |
-          cat > build/ExportOptions.plist <<'PLIST'
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-              <key>method</key><string>development</string>
-              <key>teamID</key><string>${{ secrets.APPLE_TEAM_ID }}</string>
-          </dict>
-          </plist>
-          PLIST
-          xcodebuild -exportArchive \
-            -archivePath build/GrokBotWidgetApp.xcarchive \
-            -exportOptionsPlist build/ExportOptions.plist \
-            -exportPath build/export
-
-      - name: Upload signed .ipa
-        uses: actions/upload-artifact@v4
-        with:
-          name: GrokBotWidgetApp-signed-ipa
-          path: build/export/*.ipa
-          if-no-files-found: error
