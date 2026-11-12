@@ -16,14 +16,17 @@ workflows:
             -target GrokBotWidgetApp \
             -sdk iphonesimulator \
             -configuration Debug \
-            -derivedDataPath build/DerivedData \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
             build
       - name: Package Simulator app
         script: |
-          ditto -c -k --sequesterRsrc --keepParent build/DerivedData/Build/Products/Debug-iphonesimulator/GrokBotWidgetApp.app build/GrokBotWidgetApp-simulator.zip
+          mkdir -p build
+          APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "GrokBotWidgetApp.app" -type d | head -n 1)
+          echo "Simulator app: $APP_PATH"
+          test -n "$APP_PATH"
+          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" build/GrokBotWidgetApp-simulator.zip
       - name: Archive for device (signing disabled)
         script: |
           xcodebuild \
