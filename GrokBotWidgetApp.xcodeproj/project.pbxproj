@@ -1,0 +1,207 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+		6D6F150628FE2897803EDC1C /* GrokBotWidgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrokBotWidgetApp/GrokBotWidgetApp.swift; sourceTree = "<group>"; };
+		4C05ABD0000A70E285540A07 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrokBotWidgetApp/ContentView.swift; sourceTree = "<group>"; };
+		56CA4282242D0E01A7A21F0E /* SharedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedState.swift; sourceTree = "<group>"; };
+		EDCBE1C47D49C905CB3C460B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GrokBotWidgetApp/Assets.xcassets; sourceTree = "<group>"; };
+		D89A5F44BA33F18F186F3670 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GrokBotWidgetApp/Info.plist; sourceTree = "<group>"; };
+		FA4E2B5A52BB2F6A3D415E53 /* GrokBotWidgetApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GrokBotWidgetApp/GrokBotWidgetApp.entitlements; sourceTree = "<group>"; };
+		2B88F7774D6D6B75E57909F2 /* GrokBotWidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrokBotWidgetExtension/GrokBotWidgetExtension.swift; sourceTree = "<group>"; };
+		E2096EEE1A78E656066A537C /* GrokBotWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrokBotWidgetExtension/GrokBotWidgetView.swift; sourceTree = "<group>"; };
+		1876767EBFBBEF361E65DFF7 /* Intents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrokBotWidgetExtension/Intents.swift; sourceTree = "<group>"; };
+		D8339443A74A5097102583C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GrokBotWidgetExtension/Assets.xcassets; sourceTree = "<group>"; };
+		27BBA9395F840AF8D250C6C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GrokBotWidgetExtension/Info.plist; sourceTree = "<group>"; };
+		E2CA8B4DCB6D20F08F580AD2 /* GrokBotWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GrokBotWidgetExtension/GrokBotWidgetExtension.entitlements; sourceTree = "<group>"; };
+		489596A8E9B9AE09428ABC90 /* GrokBotWidgetApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrokBotWidgetApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2D604065EB62B1E6A732B08 /* GrokBotWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GrokBotWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C466B61BCB0C0DEE735E35C /* GrokBotWidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6F150628FE2897803EDC1C /* GrokBotWidgetApp.swift */; };
+		C3021886C8EED6D250E8E9A4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C05ABD0000A70E285540A07 /* ContentView.swift */; };
+		716DFD140C162304C8972023 /* SharedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA4282242D0E01A7A21F0E /* SharedState.swift */; };
+		D0046F471E9843745A1AA06D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDCBE1C47D49C905CB3C460B /* Assets.xcassets */; };
+		762826E5E3ACCAEDEA3F446B /* GrokBotWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B88F7774D6D6B75E57909F2 /* GrokBotWidgetExtension.swift */; };
+		986656938B43B086C1D3B223 /* GrokBotWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2096EEE1A78E656066A537C /* GrokBotWidgetView.swift */; };
+		B437881E0000296848DB8077 /* Intents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1876767EBFBBEF361E65DFF7 /* Intents.swift */; };
+		2ADD8C447449BF91B681B82C /* SharedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA4282242D0E01A7A21F0E /* SharedState.swift */; };
+		4BC9A3B79C29E460C7B21571 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8339443A74A5097102583C8 /* Assets.xcassets */; };
+		D74A53FB0513B11AB81EBCB2 /* Embed App Extensions */ = {isa = PBXCopyFilesBuildPhase; buildActionMask = 2147483647; dstPath = ""; dstSubfolderSpec = 13; files = (
+				4C2C4F2A21D48BF4FD744C06 /* GrokBotWidgetExtension.appex in Embed App Extensions */,
+			); name = "Embed App Extensions"; runOnlyForDeploymentPostprocessing = 0; };
+		97A63A01E61FD439E8760B8E /*  */ = {isa = PBXGroup; children = (
+				A5660BF89DD2D657048780AB,
+				1EB4F6D265F064F5D2A66EBC,
+				56CA4282242D0E01A7A21F0E,
+				61DEB054F32CA5A5B7265A5E,
+			); sourceTree = "<group>"; };
+		A5660BF89DD2D657048780AB /* GrokBotWidgetApp */ = {isa = PBXGroup; children = (
+				6D6F150628FE2897803EDC1C,
+				4C05ABD0000A70E285540A07,
+				EDCBE1C47D49C905CB3C460B,
+				D89A5F44BA33F18F186F3670,
+				FA4E2B5A52BB2F6A3D415E53,
+			); path = GrokBotWidgetApp; sourceTree = "<group>"; };
+		1EB4F6D265F064F5D2A66EBC /* GrokBotWidgetExtension */ = {isa = PBXGroup; children = (
+				2B88F7774D6D6B75E57909F2,
+				E2096EEE1A78E656066A537C,
+				1876767EBFBBEF361E65DFF7,
+				D8339443A74A5097102583C8,
+				27BBA9395F840AF8D250C6C3,
+				E2CA8B4DCB6D20F08F580AD2,
+			); path = GrokBotWidgetExtension; sourceTree = "<group>"; };
+		61DEB054F32CA5A5B7265A5E /* Products */ = {isa = PBXGroup; children = (
+				489596A8E9B9AE09428ABC90,
+				F2D604065EB62B1E6A732B08,
+			); sourceTree = "<group>"; };
+		0D25A9A11793BE91427A3D7D /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+				6C466B61BCB0C0DEE735E35C,
+				C3021886C8EED6D250E8E9A4,
+				716DFD140C162304C8972023,
+			); runOnlyForDeploymentPostprocessing = 0; };
+		DBBFC30291D55CDD50B10B32 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (
+				D0046F471E9843745A1AA06D,
+			); runOnlyForDeploymentPostprocessing = 0; };
+		609A52E5B24E5BB109D44D04 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (
+				,
+			); runOnlyForDeploymentPostprocessing = 0; };
+		2AE0A988E300C9BF57D9804A /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+				762826E5E3ACCAEDEA3F446B,
+				986656938B43B086C1D3B223,
+				B437881E0000296848DB8077,
+				2ADD8C447449BF91B681B82C,
+			); runOnlyForDeploymentPostprocessing = 0; };
+		3C0FC0E67A902A0B867515EF /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (
+				4BC9A3B79C29E460C7B21571,
+			); runOnlyForDeploymentPostprocessing = 0; };
+		3FFEACCC5F77C74A09938A03 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (
+				,
+			); runOnlyForDeploymentPostprocessing = 0; };
+		4C2C4F2A21D48BF4FD744C06 /* GrokBotWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F2D604065EB62B1E6A732B08 /* GrokBotWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		28842F0FBEF7D211F304ACBC /* GrokBotWidgetApp */ = {isa = PBXNativeTarget; buildConfigurationList = 8C7237C629DA79FFC31BB184 /* Build configuration list for PBXNativeTarget "GrokBotWidgetApp" */; buildPhases = (
+				0D25A9A11793BE91427A3D7D /* Sources */,
+				609A52E5B24E5BB109D44D04 /* Frameworks */,
+				DBBFC30291D55CDD50B10B32 /* Resources */,
+				D74A53FB0513B11AB81EBCB2 /* Embed App Extensions */,
+			); buildRules = (
+			); dependencies = (
+				DDBC3756EEEA801679615DB4 /* PBXTargetDependency */,
+			); name = GrokBotWidgetApp; productName = GrokBotWidgetApp; productReference = 489596A8E9B9AE09428ABC90 /* GrokBotWidgetApp.app */; productType = "com.apple.product-type.application"; };
+		DE9161493188F7881779D1BC /* GrokBotWidgetExtension */ = {isa = PBXNativeTarget; buildConfigurationList = ABC4A9EE764A4345AD8D7D37 /* Build configuration list for PBXNativeTarget "GrokBotWidgetExtension" */; buildPhases = (
+				2AE0A988E300C9BF57D9804A /* Sources */,
+				3FFEACCC5F77C74A09938A03 /* Frameworks */,
+				3C0FC0E67A902A0B867515EF /* Resources */,
+			); buildRules = (
+			); dependencies = (
+			); name = GrokBotWidgetExtension; productName = GrokBotWidgetExtension; productReference = F2D604065EB62B1E6A732B08 /* GrokBotWidgetExtension.appex */; productType = "com.apple.product-type.app-extension"; };
+		DDBC3756EEEA801679615DB4 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = DE9161493188F7881779D1BC /* GrokBotWidgetExtension */; targetProxy = A68EE4167406A050681E0EA3 /* PBXContainerItemProxy */; };
+		EC553E7FBC3AD0AD7AB94BDF /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 1500; LastUpgradeCheck = 1500; TargetAttributes = {
+					28842F0FBEF7D211F304ACBC = {CreatedOnToolsVersion = 15.0; };
+					DE9161493188F7881779D1BC = {CreatedOnToolsVersion = 15.0; };
+				}; }; buildConfigurationList = C8B384993E3A9BCE1865D74F /* Build configuration list for PBXProject "GrokBotWidgetApp" */; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en, Base, ); mainGroup = 97A63A01E61FD439E8760B8E; productRefGroup = 61DEB054F32CA5A5B7265A5E /* Products */; projectDirPath = ""; projectRoot = ""; targets = (
+				28842F0FBEF7D211F304ACBC /* GrokBotWidgetApp */,
+				DE9161493188F7881779D1BC /* GrokBotWidgetExtension */,
+			); };
+		AB8615DB3E3E142DDB89E274 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = gnu++20;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grokbot.widget;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1,2;
+			}; name = Debug; };
+		936D38BAB19B48E8FEB237CB /* Release */ = {isa = XCBuildConfiguration; buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = gnu++20;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf-with-dsym;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grokbot.widget;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1,2;
+			}; name = Release; };
+		6CCC433D89988F3E2859E1DB /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GrokBotWidgetApp/GrokBotWidgetApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrokBotWidgetApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grokbot.widget;
+				PRODUCT_NAME = $(TARGET_NAME);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1,2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+			}; name = Debug; };
+		60E450B27FD0D02DD5AA6B63 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GrokBotWidgetApp/GrokBotWidgetApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrokBotWidgetApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grokbot.widget;
+				PRODUCT_NAME = $(TARGET_NAME);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1,2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				DEBUG_INFORMATION_FORMAT = dwarf-with-dsym;
+			}; name = Release; };
+		918DE9DC09F9A33829F87898 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GrokBotWidgetExtension/GrokBotWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrokBotWidgetExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @executable_path/../../Frameworks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grokbot.widget.GrokBotWidgetExtension;
+				PRODUCT_NAME = $(TARGET_NAME);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1,2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+			}; name = Debug; };
+		5AEF7A1322AAC39F0ED1B495 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = GrokBotWidgetExtension/GrokBotWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GrokBotWidgetExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @executable_path/../../Frameworks;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grokbot.widget.GrokBotWidgetExtension;
+				PRODUCT_NAME = $(TARGET_NAME);
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1,2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				DEBUG_INFORMATION_FORMAT = dwarf-with-dsym;
+			}; name = Release; };
+		C8B384993E3A9BCE1865D74F /* Build configuration list for PBXProject "GrokBotWidgetApp" */ = {isa = XCConfigurationList; buildConfigurations = (
+				AB8615DB3E3E142DDB89E274 /* Debug */,
+				936D38BAB19B48E8FEB237CB /* Release */,
+			); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		8C7237C629DA79FFC31BB184 /* Build configuration list for PBXNativeTarget "GrokBotWidgetApp" */ = {isa = XCConfigurationList; buildConfigurations = (
+				6CCC433D89988F3E2859E1DB /* Debug */,
+				60E450B27FD0D02DD5AA6B63 /* Release */,
+			); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		ABC4A9EE764A4345AD8D7D37 /* Build configuration list for PBXNativeTarget "GrokBotWidgetExtension" */ = {isa = XCConfigurationList; buildConfigurations = (
+				918DE9DC09F9A33829F87898 /* Debug */,
+				5AEF7A1322AAC39F0ED1B495 /* Release */,
+			); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A68EE4167406A050681E0EA3 /* PBXContainerItemProxy */ = {isa = PBXContainerItemProxy; containerPortal = EC553E7FBC3AD0AD7AB94BDF /* Project object */; proxyType = 1; remoteGlobalIDString = DE9161493188F7881779D1BC; remoteInfo = GrokBotWidgetExtension; };
+	};
+	rootObject = EC553E7FBC3AD0AD7AB94BDF /* Project object */;
+}
